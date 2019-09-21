@@ -49,7 +49,9 @@ class App extends Component {
 
         let createdReview = await apiCall('post', `/services/${serviceId}/review`, { review: review })
         console.log(createdReview)
-        this.getServices()
+        await this.getServices()
+
+        this.viewLawyer(serviceId)
     }
 
     upvote = async serviceId => {
