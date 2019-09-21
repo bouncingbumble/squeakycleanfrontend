@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { apiCall } from './api';
+import CreateReview from './CreateReview';
 
 class App extends Component {
     state = {
@@ -15,8 +16,8 @@ class App extends Component {
         this.setState({ services: services })
     }
 
-    createReview = async serviceId => {
-        let review = await apiCall('post', `/services/${serviceId}/review`)
+    createReview = async (serviceId, review) => {
+        let createdReview = await apiCall('post', `/services/${serviceId}/review`, review)
     }
 
     upvote = async serviceId => {
@@ -56,7 +57,7 @@ class App extends Component {
                                     return (
                                         <tr className="table-primary">
                                             <th scope="row"> {s.name} </th>
-                                            <td> {s.address.address1}</td>
+                                            <td> {s.address ? s.address.address1 : null}</td>
                                             <td> {s.phone} </td>
                                             <td>Column content</td>
                                         </tr>
