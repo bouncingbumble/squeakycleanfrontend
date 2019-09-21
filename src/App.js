@@ -31,6 +31,11 @@ class App extends Component {
 
     }
 
+    viewLawyerZ = () => {
+        this.setState({
+            showLawyer: false
+        })
+    }
 
     getServices = async () => {
         let services = await apiCall('get', '/services')
@@ -39,6 +44,12 @@ class App extends Component {
 
     createReview = async (serviceId, review) => {
         console.log(serviceId, review)
+
+        // guard against any dumb shit
+        if(review.trim() == "" || review.trim() == null || review.trim() == undefined || review.length < 50 ){
+            alert("Please enter a valid review of at least 50 characters")
+        }
+
         let createdReview = await apiCall('post', `/services/${serviceId}/review`, { review: review })
         console.log(createdReview)
     }
@@ -79,6 +90,27 @@ class App extends Component {
                             <CreateReview id={this.state.lawyer ? this.state.lawyer._id : ""} submit={this.createReview} />
                         </div>
                     </div>
+                </div>
+
+                <div className="container" style={{ marginTop : "40px"}} id="reviews-container">
+                    {
+                        this.state.lawyer ? this.state.lawyer.reviews.map( (review) => {
+                            console.log(review.body)
+
+                            return (
+                                <div>
+
+                                    <div className="alert alert-dismissible alert-warning">
+                                        <p class="mb-0" id={review._id}>
+                                            {review.body}
+                                        </p>
+                                    </div>
+
+                                    <hr />
+                                </div>
+                            )
+                        }) : ""
+                    }
                 </div>
             </div>
         )
