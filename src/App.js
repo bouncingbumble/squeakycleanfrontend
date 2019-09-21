@@ -29,7 +29,6 @@ class App extends Component {
 
     }
 
-
     getServices = async () => {
         let services = await apiCall('get', '/services')
         this.setState({ services: services })
@@ -116,6 +115,10 @@ class App extends Component {
                             <CreateReview id={this.state.lawyer? this.state.lawyer._id : ""} submit={this.createReview}/>
                         </div>
                     </div>
+                </div>
+
+                <div className="reviews-container" style={{ marginTop : "40px"}}>
+                
                 </div>
             </div>
         )
