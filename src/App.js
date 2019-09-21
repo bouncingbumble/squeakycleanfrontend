@@ -15,47 +15,59 @@ class App extends Component {
         this.setState({ services: services })
     }
 
+    createReview = async serviceId => {
+        let review = await apiCall('post', `/services/${serviceId}/review`)
+    }
+
+    upvote = async serviceId => {
+        let service = await apiCall('post', `/services/${serviceId}/upvote`)
+    }
+
+    downvote = async serviceId => {
+        let service = await apiCall('post', `/services/${serviceId}/downvote`)
+    }
+
     render() {
         return (
             <div className="App">
 
 
-            { /* NAV BAR */ }
-            <nav className="navbar navbar-expand-lg navbar-dark bg-primary sticky-top"  style={{borderStyle : 'solid'}}>
-                <a className="navbar-brand" href="#"> SQEAKY CLEAN</a>
-            </nav>
+                { /* NAV BAR */}
+                <nav className="navbar navbar-expand-lg navbar-dark bg-primary sticky-top" style={{ borderStyle: 'solid' }}>
+                    <a className="navbar-brand" href="#"> SQEAKY CLEAN</a>
+                </nav>
 
-            { /* table of all lawyers in the area */ }
-            <div className="container" style={{marginTop: "40px"}}>
-                <table className="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">Phone No</th>
-                            <th scope="col">Column heading</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                { /* table of all lawyers in the area */}
+                <div className="container" style={{ marginTop: "40px" }}>
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Phone No</th>
+                                <th scope="col">Column heading</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                        {this.state.services ? this.state.services.map(s => {
-                            {
-                                console.log(s)
-                                return(
-                                    <tr className="table-primary">
+                            {this.state.services ? this.state.services.map(s => {
+                                {
+                                    console.log(s)
+                                    return (
+                                        <tr className="table-primary">
                                             <th scope="row"> {s.name} </th>
                                             <td> {s.address.address1}</td>
                                             <td> {s.phone} </td>
                                             <td>Column content</td>
-                                    </tr>
-                                )
-                            }
-                        }) : null}
+                                        </tr>
+                                    )
+                                }
+                            }) : null}
 
 
-                    </tbody>
-                </table>
-            </div>
+                        </tbody>
+                    </table>
+                </div>
 
 
 
