@@ -29,6 +29,12 @@ class App extends Component {
 
     }
 
+    viewLawyerZ = () => {
+        this.setState({
+            showLawyer: false
+        })
+    }
+
     getServices = async () => {
         let services = await apiCall('get', '/services')
         this.setState({ services: services })
@@ -36,6 +42,12 @@ class App extends Component {
 
     createReview = async (serviceId, review) => {
         console.log(serviceId, review)
+
+        // guard against any dumb shit
+        if(review.trim() == "" || review.trim() == null || review.trim() == undefined || review.length < 50 ){
+            alert("Please enter a valid review of at least 50 characters")
+        }
+
         let createdReview = await apiCall('post', `/services/${serviceId}/review`, { review: review })
         console.log(createdReview)
     }
@@ -61,7 +73,7 @@ class App extends Component {
     render() {
 
         let table = (
-            <div className="container" style={{ marginTop: "40px" }} id="table-container">
+            <div className="container animated fadeIn" style={{ marginTop: "40px" }} id="table-container">
                 <table className="table table-hover">
                     <thead>
                         <tr>
@@ -117,8 +129,25 @@ class App extends Component {
                     </div>
                 </div>
 
-                <div className="reviews-container" style={{ marginTop : "40px"}}>
-                
+                <div className="container" style={{ marginTop : "40px"}} id="reviews-container">
+                    {
+                        this.state.lawyer ? this.state.lawyer.reviews.map( (review) => {
+                            console.log(review.body)
+
+                            return (
+                                <div>
+
+                                    <div className="alert alert-dismissible alert-warning">
+                                        <p class="mb-0" id={review._id}>
+                                            {review.body}
+                                        </p>
+                                    </div>
+
+                                    <hr />
+                                </div>
+                            )
+                        }) : ""
+                    }
                 </div>
             </div>
         )
@@ -132,7 +161,7 @@ class App extends Component {
 
                 { /* NAV BAR */}
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary sticky-top" style={{ borderStyle: 'solid' }}>
-                    <img src="https://www.pinclipart.com/picdir/big/422-4223386_duck-clipart-bathroom-rubber-duck-with-sunglasses-png.png" alt="" style={{ maxWidth: '75px', maxHeight: '75px' }} />
+                    <img src="https://www.pinclipart.com/picdir/big/422-4223386_duck-clipart-bathroom-rubber-duck-with-sunglasses-png.png" alt="" style={{ maxWidth: '75px', maxHeight: '75px' }} onClick={this.viewLawyerZ}/>
                     <a className="pl-3 navbar-brand" href="#"> SQUEAKY CLEAN - clean your record</a>
                 </nav>
 
