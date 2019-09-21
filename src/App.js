@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { apiCall } from './api';
+import CreateReview from "./CreateReview"
 
 class App extends Component {
     state = {
@@ -35,15 +36,25 @@ class App extends Component {
     }
 
     createReview = async (serviceId, review) => {
+        console.log(serviceId, review)
         let createdReview = await apiCall('post', `/services/${serviceId}/review`, review)
+        console.log(createdReview)
     }
 
     upvote = async serviceId => {
         let service = await apiCall('post', `/services/${serviceId}/upvote`)
+        console.log(service)
+        this.setState({
+            lawyer : service
+        })
     }
 
     downvote = async serviceId => {
         let service = await apiCall('post', `/services/${serviceId}/downvote`)
+        console.log(service)
+        this.setState({
+            lawyer : service
+        })
     }
 
 
@@ -94,15 +105,15 @@ class App extends Component {
                         <img className="card-img-top" src="http://pappalardolaw.com/wp-content/uploads/2017/02/lawyer-placeholder-female.jpg" alt="Card image" />
                         <div className="card-body">
                             <h4 className="card-title"> { this.state.lawyer ? this.state.lawyer.name : "" }</h4>
-                            <p className="card-text" style={{ margin : "0 auto"}}>
+                            <p className="d-flex justify-content-center card-text" style={{ margin : "0 auto"}}>
 
                                 <li className="list-group-item">
-                                    <i className="fa fa-arrow-up"></i>
+                                    <i className="fa fa-arrow-up" onClick={ () => { this.upvote(this.state.lawyer._id)} }></i>
                                     <span className="label label-primary"> { this.state.lawyer ? this.state.lawyer.votes : "" } </span>
-                                    <i className="fa fa-arrow-down"></i>
+                                    <i className="fa fa-arrow-down" onClick={ () => {this.downvote(this.state.lawyer._id)} }></i>
 	                            </li>
                             </p>
-                            <a href="#" className="btn btn-primary">See Profile</a>
+                            <CreateReview id={this.state.lawyer? this.state.lawyer._id : ""} submit={this.createReview}/>
                         </div>
                     </div>
                 </div>
