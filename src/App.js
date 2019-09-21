@@ -38,6 +38,8 @@ class App extends Component {
 
     getServices = async () => {
         let services = await apiCall('get', '/services')
+        services.sort((a, b) => (a.votes > b.votes) ? 1 : -1)
+        services.reverse()
         this.setState({ services: services })
     }
 
