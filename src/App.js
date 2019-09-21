@@ -8,16 +8,12 @@ import './App.css'
 class App extends Component {
     state = {
         services: null,
-        lawyer: {}
+        lawyer: {},
+        showLawyer: true
     }
     constructor(props) {
         super(props)
         this.getServices()
-    }
-
-    getServices = async () => {
-        let services = await apiCall('get', '/services')
-        this.setState({ services: services })
     }
 
     viewLawyer = async (id) => {
@@ -40,7 +36,7 @@ class App extends Component {
         let services = await apiCall('get', '/services')
         services.sort((a, b) => (a.votes > b.votes) ? 1 : -1)
         services.reverse()
-        this.setState({ services: services })
+        this.setState({ services: services, lawyer: services[0] })
     }
 
     createReview = async (serviceId, review) => {
