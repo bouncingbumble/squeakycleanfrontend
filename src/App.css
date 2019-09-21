@@ -13,3 +13,9 @@
 .hover {
     cursor: pointer;
 }
+
+.scroll {
+    height: 30vh;
+    overflow: auto;
+    padding: 30px;
+}

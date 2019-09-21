@@ -76,14 +76,13 @@ class App extends Component {
         }) : null
 
         let lawyer = (
-            <div className="animated slideInUp shadow mt-3" id="show-one-container" style={{ marginTop: "40px" }} style={{ border: 'none', borderRadius: '5px' }}>
+            <div className="animated slideInUp shadow mt-3 mr-3" id="show-one-container" style={{ border: 'none', borderRadius: '5px', position: 'fixed' }}>
                 <div className="container">
                     <div className="row">
                         <div className="col-12 d-flex justify-content-center align-items-center">
                             <span className="h4 mt-3 text-center"> {this.state.lawyer ? this.state.lawyer.name : ""}</span>
                         </div>
                         <div className="card-body">
-                            <p className="d-flex justify-content-center card-text" style={{ margin: "0 auto" }}></p>
                             <CreateReview id={this.state.lawyer ? this.state.lawyer._id : ""} submit={this.createReview} />
                         </div>
                     </div>
@@ -104,8 +103,6 @@ class App extends Component {
                         </div>
                         <h2 className="ml-5" style={{ color: 'white' }}>Criminal Record Relief Services in Fresno, CA</h2>
                     </div>
-
-
                 </nav>
 
                 <div className="container-fluid mx-0">
