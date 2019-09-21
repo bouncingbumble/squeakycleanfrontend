@@ -25,12 +25,12 @@ export default class CreateReview extends Component {
                     <div className="col-12">
                         <p style={{ color: 'green' }}>{this.state.message}</p>
                         <form className="d-flex justify-content-center flex-column align-items-center">
-                            <label htmlFor="" className='d-block h3'>Create Review</label>
+                            <label htmlFor="" className='d-block h5' >Create Review</label>
                             <div className="d-flex justify-content-center">
                                 <textarea className="d-block mb-4 p-3" name="body" id="" onChange={this.handleChange} value={this.state.body}></textarea>
                             </div>
 
-                            <button onClick={this.handleSubmit} className='btn btn-primary btn-lg'>SUBMIT REVIEW</button>
+                            <button onClick={this.handleSubmit} className='btn btn-primary btn-lg' style={{ backgroundColor: '#81B29A', border: 'none', borderRadius: '5px' }}>SUBMIT REVIEW</button>
                         </form>
                     </div>
                 </div>
