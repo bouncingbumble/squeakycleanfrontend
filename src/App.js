@@ -28,6 +28,26 @@ class App extends Component {
 
     }
 
+
+    getServices = async () => {
+        let services = await apiCall('get', '/services')
+        this.setState({ services: services })
+    }
+
+    createReview = async (serviceId, review) => {
+        let createdReview = await apiCall('post', `/services/${serviceId}/review`, review)
+    }
+
+    upvote = async serviceId => {
+        let service = await apiCall('post', `/services/${serviceId}/upvote`)
+    }
+
+    downvote = async serviceId => {
+        let service = await apiCall('post', `/services/${serviceId}/downvote`)
+    }
+
+
+
     render() {
 
         let table = (
@@ -74,9 +94,9 @@ class App extends Component {
                         <img className="card-img-top" src="http://pappalardolaw.com/wp-content/uploads/2017/02/lawyer-placeholder-female.jpg" alt="Card image" />
                         <div className="card-body">
                             <h4 className="card-title"> { this.state.lawyer ? this.state.lawyer.name : "" }</h4>
-                            <p className="card-text" >
+                            <p className="card-text" style={{ margin : "0 auto"}}>
 
-                                <li className="list-group-item" style={{ margin : "0 auto"}} >
+                                <li className="list-group-item">
                                     <i className="fa fa-arrow-up"></i>
                                     <span className="label label-primary"> { this.state.lawyer ? this.state.lawyer.votes : "" } </span>
                                     <i className="fa fa-arrow-down"></i>
@@ -98,12 +118,12 @@ class App extends Component {
 
                 { /* NAV BAR */ }
                 <nav className="navbar navbar-expand-lg navbar-dark bg-primary sticky-top"  style={{borderStyle : 'solid'}}>
-                    <a className="navbar-brand" href="#"> SQEAKY CLEAN</a>
+                    <img src="https://www.pinclipart.com/picdir/big/422-4223386_duck-clipart-bathroom-rubber-duck-with-sunglasses-png.png" alt="" style={{ maxWidth: '75px', maxHeight: '75px' }} />
+                    <a className="pl-3 navbar-brand" href="#"> SQUEAKY CLEAN - clean your record</a>
                 </nav>
 
                 { /**/ }
                 { tableContent }
-
 
 
                 {/*container for the reviews*/}
